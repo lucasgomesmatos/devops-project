@@ -40,4 +40,4 @@ jobs:
         run: docker build -t lucasgomesmatos/project-iac:${{ steps.generate_tag.outputs.sha }} .
 
       - name: Push docker image
-        run: docker push lucasgomesmatos/project-iac:${{ steps.generate_tag.outputs.sha }} .
+        run: docker push lucasgomesmatos/project-iac:${{ steps.generate_tag.outputs.sha }}
