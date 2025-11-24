@@ -9,17 +9,17 @@ jobs:
   build:
     name: Build and Push
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [20, 22]
+    # strategy:
+    #   matrix:
+    #     node: [20, 22]
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup node | ${{ matrix.node }}
+      - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 22
       - run: npm install -g pnpm
       - run: pnpm install
       - run: pnpm run test
@@ -36,8 +36,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build docker image
-        run: docker build -t lucasgomesmatos/project-iac:${{ steps.generate_tag.outputs.sha }} .
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: lucasgomesmatos/project-iac:${{ steps.generate_tag.outputs.sha }},lucasgomesmatos/project-iac:latest
 
-      - name: Push docker image
-        run: docker push lucasgomesmatos/project-iac:${{ steps.generate_tag.outputs.sha }}
+      # - name: Build docker image
+      #   run: docker build -t lucasgomesmatos/project-iac:${{ steps.generate_tag.outputs.sha }} .
+
+      # - name: Push docker image
+      #   run: docker push lucasgomesmatos/project-iac:${{ steps.generate_tag.outputs.sha }}
