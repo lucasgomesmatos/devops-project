@@ -48,8 +48,8 @@ jobs:
           REGISTRY: ${{ steps.login_ecr.outputs.registry }}
           TAG: ${{ steps.generate_tag.outputs.sha }}
         run: |
-          docker build -t $REGISTRY/dev_ops_ecr/project-iac:$TAG .
-          docker push $REGISTRY/dev_ops_ecr/project-iac:$TAG
+          docker build -t $REGISTRY/dev_ops_ecr:$TAG .
+          docker push $REGISTRY/dev_ops_ecr:$TAG
 
       # - name: Login into the container registry
       #   uses: docker/login-action@v3
