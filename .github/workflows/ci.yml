@@ -54,7 +54,7 @@ jobs:
           IMAGE=$(echo $REGISTRY/dev_ops_ecr:$TAG)
           echo "image=$IMAGE" >> $GITHUB_OUTPUT
       - name: Deploy to App Runner
-        uses: awslabs/aws-app-runner-deploy@main
+        uses: awslabs/amazon-app-runner-deploy@main
         with:
           service-name: devops-api
           image-url: ${{ steps.build-docker-image.outputs.image }}
